@@ -41,7 +41,7 @@ export function Home() {
     const updatedTasks = tasks.map(task => ({ ...task }));
 
     // Encontrando o index da task que será alterada
-    const indexTask = tasks.findIndex(oldTask => oldTask.id == id);    
+    const indexTask = tasks.findIndex(task => task.id == id);    
 
     // Alterando o valor do atributo done da task 
     if(updatedTasks[indexTask].done == false){
@@ -70,9 +70,22 @@ export function Home() {
       ]
 
     )
+    
+  }
 
-    
-    
+  function handleEditTask(taskId: number, taskNewTitle: string) {
+    // Cópia da informações das tasks na constante.
+    const editTask = tasks.map(task => ({...task}));
+
+    // Encontra as task que será alterada.
+    const indexTask = tasks.findIndex(task => task.id === taskId);
+
+    // Altera o título da task.
+    editTask[indexTask].title = taskNewTitle;
+
+    // Altera o estado da task.
+    setTasks(editTask);
+
   }
 
   return (
@@ -85,6 +98,7 @@ export function Home() {
         tasks={tasks} 
         toggleTaskDone={handleToggleTaskDone}
         removeTask={handleRemoveTask} 
+        editTask={handleEditTask}
       />
     </View>
   )
